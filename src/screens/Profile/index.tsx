@@ -2,7 +2,9 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
-const ProfileScreen: FC = () => {
+import {RootTabProps} from '@src/types/navigation';
+
+const ProfileScreen: FC<RootTabProps<'ProfileScreen'>> = () => {
   return (
     <View style={styles.container}>
       <Text>Profile-Profile</Text>

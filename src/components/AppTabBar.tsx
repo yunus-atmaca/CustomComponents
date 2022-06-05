@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {ScaledSheet} from 'react-native-size-matters';
 
+import {Constants} from '@src/utils';
+
 const AppTabBar: FC<BottomTabBarProps> = ({state, descriptors, navigation}) => {
   return (
     <View style={styles.container}>
@@ -40,6 +42,7 @@ const AppTabBar: FC<BottomTabBarProps> = ({state, descriptors, navigation}) => {
         return (
           <TouchableOpacity
             accessibilityRole="button"
+            key={'tab-' + label}
             accessibilityState={isFocused ? {selected: true} : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
@@ -56,7 +59,7 @@ const AppTabBar: FC<BottomTabBarProps> = ({state, descriptors, navigation}) => {
 
 const styles = ScaledSheet.create({
   container: {
-    height: '48@ms',
+    height: Constants.TAB_BAR_HEIGHT,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
