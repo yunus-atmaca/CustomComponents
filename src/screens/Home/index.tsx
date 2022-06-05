@@ -9,6 +9,7 @@ import {useAppDispatch} from '@src/hooks/store';
 import {createHeaderProps} from '@src/types/header';
 import {setHeader} from '@src/store/controllers/header';
 import {Colors} from '@src/res';
+import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
 
 const HomeScreen: FC<RootTabProps<'Home'>> = ({}) => {
   const dispatch = useAppDispatch();
@@ -16,9 +17,18 @@ const HomeScreen: FC<RootTabProps<'Home'>> = ({}) => {
   useFocusEffect(
     useCallback(() => {
       //console.debug('onFocus:HomeScreen');
-      dispatch(setHeader(createHeaderProps('HomeScreen')));
+      dispatch(
+        setHeader({
+          ...createHeaderProps('HomeScreen'),
+          ...{onPostfix: openVideoPlayer},
+        }),
+      );
     }, [dispatch]),
   );
+
+  const openVideoPlayer = useCallback(() => {
+    dispatch(setVideoPlayer({data: 'video-player'}));
+  }, [dispatch]);
 
   return (
     <PageContainer hasHeader hasTabBar style={styles.container}>

@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {View, Text} from 'react-native';
+import React, {FC, useCallback} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {moderateScale, ScaledSheet} from 'react-native-size-matters';
 
 import {Constants} from '@src/utils';
@@ -8,6 +8,10 @@ import {Colors} from '@src/res';
 
 const Header: FC = () => {
   const props = useAppSelector(state => state.headerController.props);
+
+  const _onPostfix = useCallback(() => {
+    props?.onPostfix && props.onPostfix();
+  }, [props]);
 
   if (!props) return null;
   return (
@@ -19,9 +23,12 @@ const Header: FC = () => {
         </View>
       )}
       {props.postfixIc && (
-        <View style={[styles.iconContainer, {right: moderateScale(16)}]}>
+        <TouchableOpacity
+          onPress={_onPostfix}
+          activeOpacity={0.7}
+          style={[styles.iconContainer, {right: moderateScale(16)}]}>
           <props.postfixIc color={Colors.black} />
-        </View>
+        </TouchableOpacity>
       )}
     </View>
   );

@@ -5,6 +5,7 @@ import Orientation from 'react-native-orientation-locker';
 
 import {RootTabNav} from '@src/navigation';
 import {Header} from '@src/components';
+import {AppOverlayHolder} from '@src/screens';
 
 type Props = {};
 
@@ -17,6 +18,7 @@ const AppHolder: FC<Props> = () => {
     <SafeAreaView style={styles.container}>
       <RootTabNav />
       <Header />
+      <AppOverlayHolder />
     </SafeAreaView>
   );
 };

@@ -1,11 +1,16 @@
 import {configureStore} from '@reduxjs/toolkit';
 
-import {CoachMarkController, HeaderController} from './controllers';
+import {
+  CoachMarkController,
+  HeaderController,
+  VideoPlayerController,
+} from './controllers';
 
 const store = configureStore({
   reducer: {
     coachMarkController: CoachMarkController.reducer,
     headerController: HeaderController.reducer,
+    videoPlayerController: VideoPlayerController.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({serializableCheck: false}),

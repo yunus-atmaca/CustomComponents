@@ -1,4 +1,4 @@
-import {Ic_Play} from './icons';
 import {Colors} from './colors';
+import {Ic_Play, Ic_Close} from './icons';
 
-export {Colors, Ic_Play};
+export {Colors, Ic_Play, Ic_Close};
