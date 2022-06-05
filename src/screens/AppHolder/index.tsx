@@ -1,16 +1,18 @@
 import React, {FC} from 'react';
-import {View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {RootTabNav} from '@src/navigation';
+import {Header} from '@src/components';
 
 type Props = {};
 
 const AppHolder: FC<Props> = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <RootTabNav />
-    </View>
+      <Header />
+    </SafeAreaView>
   );
 };
 

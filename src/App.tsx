@@ -1,5 +1,4 @@
 import React, {FC, useEffect} from 'react';
-import {Text} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {SafeAreaProvider} from 'react-native-safe-area-context';

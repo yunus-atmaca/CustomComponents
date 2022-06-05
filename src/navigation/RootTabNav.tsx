@@ -18,11 +18,11 @@ const RootTabNavigation: FC = () => {
   return (
     <NavigationContainer ref={navigationRef} onStateChange={_onStateChange}>
       <Tab.Navigator
-        initialRouteName={'HomeScreen'}
+        initialRouteName={'Home'}
         screenOptions={{headerShown: false}}
         tabBar={props => <AppTabBar {...props} />}>
-        <Tab.Screen name="HomeScreen" component={HomeScreen} />
-        <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

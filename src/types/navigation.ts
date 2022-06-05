@@ -7,8 +7,8 @@ import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {createNavigationContainerRef} from '@react-navigation/native';
 
 export type RootTabNav = {
-  HomeScreen: undefined;
-  ProfileScreen: undefined;
+  Home: undefined;
+  Profile: undefined;
 };
 
 export type RootTabProps<K extends keyof RootTabNav> = BottomTabScreenProps<

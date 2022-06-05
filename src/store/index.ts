@@ -1,23 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit"
+import {configureStore} from '@reduxjs/toolkit';
 
-import { CoachMarkController } from "./controllers"
+import {CoachMarkController, HeaderController} from './controllers';
 
 const store = configureStore({
   reducer: {
-    coachMarkController: CoachMarkController.reducer
+    coachMarkController: CoachMarkController.reducer,
+    headerController: HeaderController.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
-})
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({serializableCheck: false}),
+});
 
-type RootState = ReturnType<typeof store.getState>
-type AppDispatch = typeof store.dispatch
+type RootState = ReturnType<typeof store.getState>;
+type AppDispatch = typeof store.dispatch;
 
-export {
-  store,
-}
+export {store};
 
-export type {
-  RootState,
-  AppDispatch
-}
+export type {RootState, AppDispatch};

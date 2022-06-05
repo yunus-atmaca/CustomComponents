@@ -4,6 +4,7 @@ import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import {Constants} from '@src/utils';
+import {Colors} from '@src/res';
 
 const AppTabBar: FC<BottomTabBarProps> = ({state, descriptors, navigation}) => {
   return (
@@ -49,7 +50,9 @@ const AppTabBar: FC<BottomTabBarProps> = ({state, descriptors, navigation}) => {
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.tab}>
-            <Text style={{color: isFocused ? 'red' : 'white'}}>{label}</Text>
+            <Text style={{color: isFocused ? Colors.red : Colors.black}}>
+              {label}
+            </Text>
           </TouchableOpacity>
         );
       })}
@@ -65,11 +68,19 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     borderTopEndRadius: 12,
     borderTopStartRadius: 12,
-    backgroundColor: 'black',
+    backgroundColor: Colors.white,
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
+    shadowColor: Colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 16,
+    elevation: 12,
   },
   tab: {
     flex: 1,

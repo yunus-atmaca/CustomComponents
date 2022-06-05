@@ -1,0 +1,36 @@
+export const Colors = {
+  white: '#FFFFFF',
+  white01: 'rgba(255, 255, 255, .1)',
+  white02: 'rgba(255, 255, 255, .2)',
+  white06: 'rgba(255, 255, 255, .6)',
+  white08: 'rgba(255, 255, 255, .8)',
+  white04: 'rgba(255, 255, 255, .4)',
+
+  black: '#000000',
+  black08: 'rgba(0, 0, 0, .8)',
+  black06: 'rgba(0, 0, 0, .6)',
+  black04: 'rgba(0, 0, 0, .4)',
+  black02: 'rgba(0, 0, 0, .2)',
+  black01: 'rgba(0, 0, 0, .1)',
+  black004: 'rgba(0, 0, 0, .04)',
+
+  yellow: '#FBFD16',
+  sand: '#FAF6F1',
+  iceBlue: '#7DE3FD',
+  pink: '#F793DC',
+  orange: '#FBC160',
+  green: '#37D7AA',
+  blue: '#0E01A9',
+  red: '#FC0800',
+  orangeSky: '#FA4E04',
+  purple: '#AD1ED5',
+
+  grey: '#BDBDBD',
+  grey1: '#CCCCCC',
+  grey2: '#4F4F4F',
+  grey3: '#F5F5F5',
+  grey4: '#333333',
+  grey5: '#DADADA',
+
+  transparent: 'transparent',
+};

@@ -1,24 +1,36 @@
-import React, {FC} from 'react';
-import {View, Text} from 'react-native';
+import React, {FC, useCallback} from 'react';
+import {Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {RootTabProps} from '@src/types/navigation';
+import {PageContainer} from '@src/components';
+import {useAppDispatch} from '@src/hooks/store';
+import {createHeaderProps} from '@src/types/header';
+import {setHeader} from '@src/store/controllers/header';
+import {Colors} from '@src/res';
 
-const HomeScreen: FC<RootTabProps<'HomeScreen'>> = ({navigation, route}) => {
+const HomeScreen: FC<RootTabProps<'Home'>> = ({}) => {
+  const dispatch = useAppDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      //console.debug('onFocus:HomeScreen');
+      dispatch(setHeader(createHeaderProps('HomeScreen')));
+    }, [dispatch]),
+  );
+
   return (
-    <View style={styles.container}>
+    <PageContainer hasHeader hasTabBar style={styles.container}>
       <Text>Home-Home</Text>
-    </View>
+    </PageContainer>
   );
 };
 
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: Colors.sand,
   },
 });
 
