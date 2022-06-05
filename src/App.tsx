@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 import {useAppSession} from './hooks/appSession';
 import {store} from './store';
+import {AppHolder} from './screens';
 
 const Root: FC = () => {
   const loading = useAppSession();
@@ -21,7 +22,7 @@ const Root: FC = () => {
 
   return (
     <SafeAreaProvider>
-      <Text>Root App</Text>
+      <AppHolder />
     </SafeAreaProvider>
   );
 };
