@@ -1,32 +1,52 @@
 import React, {FC, useEffect} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-
-import {DraggableContainer} from '@src/components';
-import {useAppDispatch} from '@src/hooks/store';
-import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
-import {Ic_Close} from '@src/res';
 import Orientation from 'react-native-orientation-locker';
+
+import {useAppDispatch, useAppSelector} from '@src/hooks/store';
+import {
+  setVideoPlayer,
+  defaultValues,
+} from '@src/store/controllers/videoPlayer';
+import {Ic_Close} from '@src/res';
+import {Device} from '@src/utils';
+
+import PlayerContainer from './PlayerContainer';
+import Video from './Video';
 
 type Props = {};
 
 const VideoPlayer: FC<Props> = ({}) => {
   const dispatch = useAppDispatch();
 
+  const orientation = useAppSelector(
+    state => state.videoPlayerController.orientation,
+  );
+
   useEffect(() => {
-    //Orientation.lockToPortrait();
-  }, []);
+    Orientation.addOrientationListener(orientation => {
+      console.debug('onOrientationChange: ', orientation);
+
+      if (orientation.includes('PORTRAIT')) {
+        dispatch(setVideoPlayer({orientation: 'PORTRAIT'}));
+      } else if (orientation.includes('LANDSCAPE')) {
+        dispatch(setVideoPlayer({orientation: 'LANDSCAPE'}));
+      }
+    });
+
+    return () => {
+      Orientation.removeAllListeners();
+    };
+  }, [dispatch]);
 
   const _onClose = () => {
-    dispatch(setVideoPlayer({data: undefined}));
+    //Device.fullScreen(false);
+    dispatch(setVideoPlayer(defaultValues));
   };
 
   return (
-    <View style={styles.container}>
-      <DraggableContainer
-        orientation={'Portrait'}
-        containerStyle={styles.draggable}
-        enabled></DraggableContainer>
+    <PlayerContainer>
+      <Video orientation={orientation} />
 
       <TouchableOpacity
         onPress={_onClose}
@@ -34,7 +54,7 @@ const VideoPlayer: FC<Props> = ({}) => {
         style={styles.closeContainer}>
         <Ic_Close color={'white'} />
       </TouchableOpacity>
-    </View>
+    </PlayerContainer>
   );
 };
 

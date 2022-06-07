@@ -26,7 +26,8 @@ import {Device} from '@src/utils';
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
   enabled: boolean;
-  orientation: 'Landscape' | 'Portrait';
+  orientation: 'PORTRAIT' | 'LANDSCAPE';
+  paddingOff?: number;
 };
 
 type DraggableProps = {
@@ -45,6 +46,7 @@ const DraggableContainer: React.FC<Props> = ({
   containerStyle,
   enabled,
   orientation,
+  paddingOff = moderateScale(24),
 }) => {
   const [containerMeasure, setContainerMeasure] =
     useState<DraggableProps | null>(null);
@@ -125,20 +127,19 @@ const DraggableContainer: React.FC<Props> = ({
 
   const setLayout = (layout: LayoutRectangle) => {
     const {x, y, height, width} = layout;
-    console.debug(layout);
+    //console.debug(layout);
 
-    const paddingOff = moderateScale(24);
     const VerticalSize =
-      orientation === 'Portrait' ? Device.W_HEIGHT : Device.W_WIDTH;
+      orientation === 'PORTRAIT' ? Device.W_HEIGHT : Device.W_WIDTH;
     const HorizontalSize =
-      orientation === 'Portrait' ? Device.W_WIDTH : Device.W_HEIGHT;
+      orientation === 'PORTRAIT' ? Device.W_WIDTH : Device.W_HEIGHT;
 
     let offLeft = x - paddingOff;
     let offRight = HorizontalSize - x - width - paddingOff;
     let offTop = y - paddingOff;
     let offBottom = VerticalSize - y - height - paddingOff;
 
-    console.debug(offLeft, offRight, offTop, offBottom);
+    //console.debug(offLeft, offRight, offTop, offBottom);
 
     setContainerMeasure({
       x,

@@ -10,6 +10,7 @@ import {createHeaderProps} from '@src/types/header';
 import {setHeader} from '@src/store/controllers/header';
 import {Colors} from '@src/res';
 import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
+import {Device} from '@src/utils';
 
 const HomeScreen: FC<RootTabProps<'Home'>> = ({}) => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const HomeScreen: FC<RootTabProps<'Home'>> = ({}) => {
   );
 
   const openVideoPlayer = useCallback(() => {
+    //Device.fullScreen(true);
     dispatch(setVideoPlayer({data: 'video-player'}));
   }, [dispatch]);
 

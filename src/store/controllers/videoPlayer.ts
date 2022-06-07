@@ -4,11 +4,19 @@ const name = 'videoPlayer';
 
 type State = {
   data: string | undefined;
+  orientation: 'PORTRAIT' | 'LANDSCAPE';
+  appPipMode?: boolean;
+  duration?: number;
 };
 
-const initialState: State = {
+export const defaultValues: State = {
   data: undefined,
+  orientation: 'PORTRAIT',
+  appPipMode: false,
+  duration: undefined,
 };
+
+const initialState = defaultValues;
 
 const {
   actions: {setVideoPlayer},

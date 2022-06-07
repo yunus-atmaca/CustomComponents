@@ -1,4 +1,4 @@
-import {Dimensions, Platform, StatusBar} from 'react-native';
+import {Dimensions, StatusBar, Platform, NativeModules} from 'react-native';
 
 const STATUSBAR_DEFAULT_HEIGHT = 20;
 const STATUSBAR_X_HEIGHT = 44;
@@ -62,3 +62,13 @@ export const statusBar = () => {
 };
 
 export {W_HEIGHT, W_WIDTH, S_HEIGHT, S_WIDTH};
+
+export const fullScreen = (fullSCreen: boolean) => {
+  if (Platform.OS === 'android') {
+    if (fullSCreen) {
+      NativeModules.FullScreen.onFullScreen();
+    } else {
+      NativeModules.FullScreen.offFullScreen();
+    }
+  }
+};

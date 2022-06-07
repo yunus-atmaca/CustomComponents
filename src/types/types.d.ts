@@ -1,2 +1,2 @@
 declare global {}
-//declare module mux-react-native-video-sdk
+//declare module 'react-native-video';
