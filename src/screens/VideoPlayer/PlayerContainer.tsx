@@ -3,18 +3,20 @@ import {} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import {DraggableContainer} from '@src/components';
-import {useAppSelector} from '@src/hooks/store';
-import {Constants, Device} from '@src/utils';
+import {Device} from '@src/utils';
+import {PIP_HEIGHT, PIP_WIDTH} from './Constants';
 
-const PlayerContainer: FC = ({children}) => {
-  /*const orientation = useAppSelector(
-    state => state.videoPlayerController.orientation,
-  );*/
+type Props = {
+  inAppPipMode: boolean;
+};
 
+const PlayerContainer: FC<Props> = ({children, inAppPipMode}) => {
   return (
     <DraggableContainer
-      containerStyle={styles.container}
-      enabled={false}
+      containerStyle={
+        inAppPipMode ? styles.appPipModeContainer : styles.container
+      }
+      enabled={inAppPipMode}
       orientation={'PORTRAIT'}>
       {children}
     </DraggableContainer>
@@ -34,10 +36,10 @@ const styles = ScaledSheet.create({
   },
   appPipModeContainer: {
     position: 'absolute',
-    right: Constants.APP_PIP_OFF,
-    bottom: Constants.APP_PIP_OFF,
-    width: Device.W_WIDTH * 0.55,
-    height: Device.W_HEIGHT * 0.2,
+    right: '24@ms',
+    bottom: 0,
+    width: PIP_WIDTH,
+    height: PIP_HEIGHT,
   },
 });
 

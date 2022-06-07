@@ -22,7 +22,16 @@ const Header: FC<Props> = ({orientation}) => {
     Orientation.lockToPortrait();
     dispatch(setVideoPlayer(defaultValues));
     Device.fullScreen(false);
-  }, []);
+  }, [dispatch]);
+
+  const onInAppPipMode = useCallback(() => {
+    Orientation.lockToPortrait();
+    Device.fullScreen(false);
+
+    setTimeout(() => {
+      dispatch(setVideoPlayer({appPipMode: true}));
+    }, 50);
+  }, [dispatch]);
 
   return (
     <View
@@ -48,12 +57,15 @@ const Header: FC<Props> = ({orientation}) => {
           source={require('../../../../assets/imgs/close.png')}
         />
       </TouchableOpacity>
-      <View style={styles.iconContainer}>
+      <TouchableOpacity
+        onPress={onInAppPipMode}
+        activeOpacity={0.7}
+        style={styles.iconContainer}>
         <Image
           style={styles.icon}
           source={require('../../../../assets/imgs/pip.png')}
         />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

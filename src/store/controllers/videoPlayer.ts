@@ -5,8 +5,8 @@ const name = 'videoPlayer';
 type State = {
   data: string | undefined;
   orientation: 'PORTRAIT' | 'LANDSCAPE';
-  appPipMode?: boolean;
-  duration?: number;
+  appPipMode: boolean;
+  duration: number | undefined;
 };
 
 export const defaultValues: State = {
