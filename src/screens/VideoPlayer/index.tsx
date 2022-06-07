@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Orientation from 'react-native-orientation-locker';
@@ -23,24 +23,9 @@ const VideoPlayer: FC<Props> = ({}) => {
     state => state.videoPlayerController.orientation,
   );
 
-  useEffect(() => {
-    Orientation.addOrientationListener(orientation => {
-      console.debug('onOrientationChange: ', orientation);
-
-      if (orientation.includes('PORTRAIT')) {
-        dispatch(setVideoPlayer({orientation: 'PORTRAIT'}));
-      } else if (orientation.includes('LANDSCAPE')) {
-        dispatch(setVideoPlayer({orientation: 'LANDSCAPE'}));
-      }
-    });
-
-    return () => {
-      Orientation.removeAllListeners();
-    };
-  }, [dispatch]);
-
   const _onClose = () => {
     Device.fullScreen(false);
+    Orientation.lockToPortrait();
     dispatch(setVideoPlayer(defaultValues));
   };
 

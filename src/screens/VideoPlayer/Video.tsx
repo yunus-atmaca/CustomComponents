@@ -34,7 +34,7 @@ const Video: FC<Props> = ({orientation}) => {
         onLoad={_onLoad}
         resizeMode={'contain'}
       />
-      <Controllers />
+      <Controllers orientation={orientation} />
     </View>
   );
 };

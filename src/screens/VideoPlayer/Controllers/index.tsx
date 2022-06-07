@@ -1,16 +1,17 @@
 import React, {FC} from 'react';
-import {Dimensions, View} from 'react-native';
+import {View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import Footer from './Footer';
 
-type Props = {};
+type Props = {
+  orientation: 'PORTRAIT' | 'LANDSCAPE';
+};
 
-const Controllers: FC<Props> = ({}) => {
-  //console.debug(dim);
+const Controllers: FC<Props> = ({orientation}) => {
   return (
     <View style={styles.container}>
-      <Footer />
+      <Footer orientation={orientation} />
     </View>
   );
 };
@@ -22,7 +23,6 @@ const styles = ScaledSheet.create({
     right: 0,
     bottom: 0,
     top: 0,
-    //backgroundColor: 'green',
   },
 });
 
