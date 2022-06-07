@@ -28,7 +28,7 @@ const HomeScreen: FC<RootTabProps<'Home'>> = ({}) => {
   );
 
   const openVideoPlayer = useCallback(() => {
-    //Device.fullScreen(true);
+    Device.fullScreen(true);
     dispatch(setVideoPlayer({data: 'video-player'}));
   }, [dispatch]);
 

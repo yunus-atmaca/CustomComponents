@@ -5,6 +5,8 @@ import RNVideo, {OnLoadData} from 'react-native-video';
 
 import {Device} from '@src/utils';
 
+import Controllers from './Controllers';
+
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
 };
@@ -16,7 +18,7 @@ const Video: FC<Props> = ({orientation}) => {
 
   const V_HEIGHT = useMemo(() => {
     return orientation === 'PORTRAIT' ? Device.S_HEIGHT : Device.S_WIDTH;
-  }, []);
+  }, [orientation]);
 
   const _onLoad = useCallback((data: OnLoadData) => {
     //console.debug(data);
@@ -32,6 +34,7 @@ const Video: FC<Props> = ({orientation}) => {
         onLoad={_onLoad}
         resizeMode={'contain'}
       />
+      <Controllers />
     </View>
   );
 };
@@ -40,7 +43,7 @@ const styles = ScaledSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    //backgroundColor: 'red',
   },
   video: {
     position: 'absolute',

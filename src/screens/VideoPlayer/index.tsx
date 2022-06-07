@@ -40,7 +40,7 @@ const VideoPlayer: FC<Props> = ({}) => {
   }, [dispatch]);
 
   const _onClose = () => {
-    //Device.fullScreen(false);
+    Device.fullScreen(false);
     dispatch(setVideoPlayer(defaultValues));
   };
 
