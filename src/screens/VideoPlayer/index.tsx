@@ -23,56 +23,13 @@ const VideoPlayer: FC<Props> = ({}) => {
     state => state.videoPlayerController.orientation,
   );
 
-  const _onClose = () => {
-    Device.fullScreen(false);
-    Orientation.lockToPortrait();
-    dispatch(setVideoPlayer(defaultValues));
-  };
-
   return (
     <PlayerContainer>
       <Video orientation={orientation} />
-
-      <TouchableOpacity
-        onPress={_onClose}
-        activeOpacity={0.7}
-        style={styles.closeContainer}>
-        <Ic_Close color={'white'} />
-      </TouchableOpacity>
     </PlayerContainer>
   );
 };
 
-const styles = ScaledSheet.create({
-  container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'black',
-  },
-  draggable: {
-    width: '144@ms',
-    height: '72@ms',
-    backgroundColor: 'red',
-    borderRadius: '8@ms',
-    marginStart: '24@ms',
-    marginTop: '60@ms',
-  },
-  closeContainer: {
-    position: 'absolute',
-    right: '24@ms',
-    top: '24@ms',
-    width: '40@ms',
-    height: '40@ms',
-    backgroundColor: 'blue',
-    borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = ScaledSheet.create({});
 
 export default VideoPlayer;

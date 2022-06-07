@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import Footer from './Footer';
+import Header from './Header';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
@@ -11,6 +12,7 @@ type Props = {
 const Controllers: FC<Props> = ({orientation}) => {
   return (
     <View style={styles.container}>
+      <Header orientation={orientation} />
       <Footer orientation={orientation} />
     </View>
   );

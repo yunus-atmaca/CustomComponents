@@ -2,8 +2,6 @@ import React, {FC} from 'react';
 import {View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
-import {Colors} from '@src/res';
-
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
 };
