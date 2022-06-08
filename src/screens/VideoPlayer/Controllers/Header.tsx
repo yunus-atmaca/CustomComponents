@@ -29,7 +29,7 @@ const Header: FC<Props> = ({orientation}) => {
     Device.fullScreen(false);
 
     setTimeout(() => {
-      dispatch(setVideoPlayer({appPipMode: true}));
+      dispatch(setVideoPlayer({appPipMode: true, orientation: 'PORTRAIT'}));
     }, 50);
   }, [dispatch]);
 

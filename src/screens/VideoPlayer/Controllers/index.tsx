@@ -4,16 +4,25 @@ import {ScaledSheet} from 'react-native-size-matters';
 
 import Footer from './Footer';
 import Header from './Header';
+import Pip from './Pip';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
+  paused: boolean;
+  inAppPipMode: boolean;
 };
 
-const Controllers: FC<Props> = ({orientation}) => {
+const Controllers: FC<Props> = ({orientation, paused, inAppPipMode}) => {
   return (
     <View style={styles.container}>
-      <Header orientation={orientation} />
-      <Footer orientation={orientation} />
+      {inAppPipMode ? (
+        <Pip paused={paused} />
+      ) : (
+        <>
+          <Header orientation={orientation} />
+          <Footer orientation={orientation} paused={paused} />
+        </>
+      )}
     </View>
   );
 };

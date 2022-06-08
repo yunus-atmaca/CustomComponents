@@ -4,7 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import RNVideo, {OnLoadData} from 'react-native-video';
 
 import {Device} from '@src/utils';
-import {useAppDispatch} from '@src/hooks/store';
+import {useAppDispatch, useAppSelector} from '@src/hooks/store';
 import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
 
 import Controllers from './Controllers';
@@ -18,6 +18,7 @@ type Props = {
 
 const Video: FC<Props> = ({orientation, inAppPipMode}) => {
   const dispatch = useAppDispatch();
+  const paused = useAppSelector(state => state.videoPlayerController.paused);
 
   const V_WIDTH = useMemo(() => {
     if (inAppPipMode) {
@@ -36,11 +37,10 @@ const Video: FC<Props> = ({orientation, inAppPipMode}) => {
   }, [orientation, inAppPipMode]);
 
   const _onLoad = useCallback((data: OnLoadData) => {
-    console.debug('_onLoad: ', data);
+    //console.debug('_onLoad: ', data);
     dispatch(setVideoPlayer({duration: data.duration}));
   }, []);
 
-  console.debug('11---Video---11');
   return (
     <View style={[styles.container, {width: V_WIDTH, height: V_HEIGHT}]}>
       <RNVideo
@@ -50,8 +50,14 @@ const Video: FC<Props> = ({orientation, inAppPipMode}) => {
         style={[styles.video, {width: V_WIDTH, height: V_HEIGHT}]}
         onLoad={_onLoad}
         resizeMode={'contain'}
+        paused={paused}
       />
-      {!inAppPipMode && <Controllers orientation={orientation} />}
+
+      <Controllers
+        inAppPipMode={inAppPipMode}
+        orientation={orientation}
+        paused={paused}
+      />
     </View>
   );
 };
@@ -68,6 +74,7 @@ const styles = ScaledSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+    backgroundColor: 'black',
   },
 });
 

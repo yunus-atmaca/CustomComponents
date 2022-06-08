@@ -10,9 +10,10 @@ import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
+  paused: boolean;
 };
 
-const Buttons: FC<Props> = ({orientation}) => {
+const Buttons: FC<Props> = ({orientation, paused}) => {
   const dispatch = useAppDispatch();
 
   const _onScreenRotate = useCallback(() => {
@@ -24,6 +25,10 @@ const Buttons: FC<Props> = ({orientation}) => {
       dispatch(setVideoPlayer({orientation: 'LANDSCAPE'}));
     }
   }, [orientation]);
+
+  const onPlayToggled = useCallback(() => {
+    dispatch(setVideoPlayer({paused: !paused}));
+  }, [paused]);
 
   return (
     <View
@@ -47,12 +52,19 @@ const Buttons: FC<Props> = ({orientation}) => {
         />
       </View>
 
-      <View style={styles.iconContainer}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={onPlayToggled}
+        style={styles.iconContainer}>
         <Image
           style={styles.icon}
-          source={require('../../../../assets/imgs/play.png')}
+          source={
+            paused
+              ? require('../../../../assets/imgs/play.png')
+              : require('../../../../assets/imgs/pause.png')
+          }
         />
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity
         activeOpacity={0.7}

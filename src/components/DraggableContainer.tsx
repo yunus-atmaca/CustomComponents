@@ -29,7 +29,7 @@ type Props = {
   orientation?: 'PORTRAIT' | 'LANDSCAPE';
 };
 
-type DraggableProps = {
+export type DraggableProps = {
   x: number;
   y: number;
   height: number;

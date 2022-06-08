@@ -13,7 +13,7 @@ const VideoPlayer: FC<Props> = ({}) => {
   const orientation = useAppSelector(
     state => state.videoPlayerController.orientation,
   );
-  const inAppPIPMode = useAppSelector(
+  const appPipMode = useAppSelector(
     state => state.videoPlayerController.appPipMode,
   );
 
@@ -28,16 +28,14 @@ const VideoPlayer: FC<Props> = ({}) => {
   }, []);
 
   return (
-    <PlayerContainer inAppPipMode={inAppPIPMode}>
+    <PlayerContainer inAppPipMode={appPipMode}>
       <Video
-        inAppPipMode={inAppPIPMode}
+        inAppPipMode={appPipMode}
         eventHandlers={_eventHandlers}
         orientation={orientation}
       />
     </PlayerContainer>
   );
 };
-
-const styles = ScaledSheet.create({});
 
 export default VideoPlayer;

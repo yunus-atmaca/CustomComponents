@@ -4,16 +4,17 @@ import {ScaledSheet} from 'react-native-size-matters';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
+  paused: boolean;
 };
 
 import Buttons from './Buttons';
 import Scrubber from './Scrubber';
 
-const Footer: FC<Props> = ({orientation}) => {
+const Footer: FC<Props> = ({orientation, paused}) => {
   return (
     <View style={styles.container}>
       <Scrubber orientation={orientation} />
-      <Buttons orientation={orientation} />
+      <Buttons orientation={orientation} paused={paused} />
     </View>
   );
 };

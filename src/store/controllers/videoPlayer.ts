@@ -7,6 +7,7 @@ type State = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   appPipMode: boolean;
   duration: number | undefined;
+  paused: boolean;
 };
 
 export const defaultValues: State = {
@@ -14,6 +15,7 @@ export const defaultValues: State = {
   orientation: 'PORTRAIT',
   appPipMode: false,
   duration: undefined,
+  paused: false,
 };
 
 const initialState = defaultValues;

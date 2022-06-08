@@ -52,12 +52,15 @@ public class FullScreen extends ReactContextBaseJavaModule {
                         WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
               }
 
-              w.setFlags(
+              /*w.setFlags(
                       WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                       WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
               w.setFlags(
                       WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                      WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                      WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);*/
+
+              w.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+              w.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             }
           }
         });
@@ -75,17 +78,23 @@ public class FullScreen extends ReactContextBaseJavaModule {
                           | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                           | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
+
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             w.getAttributes().layoutInDisplayCutoutMode =
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT;
           }
 
-          w.setNavigationBarColor(ContextCompat.getColor(getCurrentActivity(), R.color.primary_dark));
+          /*w.setNavigationBarColor(ContextCompat.getColor(getCurrentActivity(), R.color.primary_dark));
           w.setStatusBarColor(ContextCompat.getColor(getCurrentActivity(), R.color.primary_dark));
           //w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
           w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
           w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-          w.clearFlags(WindowManager.LayoutParams.TYPE_STATUS_BAR);
+          w.clearFlags(WindowManager.LayoutParams.TYPE_STATUS_BAR);*/
+
+          w.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+          w.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
+          w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
       }
     });

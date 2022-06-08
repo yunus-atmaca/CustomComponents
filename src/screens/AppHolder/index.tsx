@@ -6,12 +6,22 @@ import Orientation from 'react-native-orientation-locker';
 import {RootTabNav} from '@src/navigation';
 import {Header} from '@src/components';
 import {AppOverlayHolder} from '@src/screens';
+import {useAppDispatch} from '@src/hooks/store';
+import {
+  setVideoPlayer,
+  defaultValues,
+} from '@src/store/controllers/videoPlayer';
+import {Device} from '@src/utils';
 
 type Props = {};
 
 const AppHolder: FC<Props> = () => {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     Orientation.lockToPortrait();
+    dispatch(setVideoPlayer(defaultValues));
+    Device.fullScreen(false);
   }, []);
 
   return (
