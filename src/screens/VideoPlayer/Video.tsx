@@ -1,5 +1,5 @@
-import React, {FC, useCallback, useMemo} from 'react';
-import {View} from 'react-native';
+import React, {FC, useCallback, useMemo, useState} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import RNVideo, {OnLoadData} from 'react-native-video';
 
@@ -19,6 +19,8 @@ type Props = {
 const Video: FC<Props> = ({orientation, inAppPipMode}) => {
   const dispatch = useAppDispatch();
   const paused = useAppSelector(state => state.videoPlayerController.paused);
+
+  const [visible, setVisible] = useState(true);
 
   const V_WIDTH = useMemo(() => {
     if (inAppPipMode) {
@@ -41,8 +43,13 @@ const Video: FC<Props> = ({orientation, inAppPipMode}) => {
     dispatch(setVideoPlayer({duration: data.duration}));
   }, []);
 
+  const _onScreen = useCallback(() => setVisible(prev => !prev), [visible]);
+
   return (
-    <View style={[styles.container, {width: V_WIDTH, height: V_HEIGHT}]}>
+    <TouchableOpacity
+      onPress={_onScreen}
+      activeOpacity={1}
+      style={[styles.container, {width: V_WIDTH, height: V_HEIGHT}]}>
       <RNVideo
         source={{
           uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
@@ -54,11 +61,12 @@ const Video: FC<Props> = ({orientation, inAppPipMode}) => {
       />
 
       <Controllers
+        visible={visible}
         inAppPipMode={inAppPipMode}
         orientation={orientation}
         paused={paused}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 

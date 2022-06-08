@@ -1,7 +1,13 @@
-import React, {FC, useCallback} from 'react';
-import {View, Image, TouchableOpacity} from 'react-native';
+import React, {FC, useCallback, useRef, useEffect} from 'react';
+import {Image, TouchableOpacity, LayoutChangeEvent} from 'react-native';
 import {ScaledSheet, moderateScale} from 'react-native-size-matters';
 import Orientation from 'react-native-orientation-locker';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
 
 import {Colors} from '@src/res';
 import {Device} from '@src/utils';
@@ -13,10 +19,38 @@ import {
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
+  visible: boolean;
 };
 
-const Header: FC<Props> = ({orientation}) => {
+const Header: FC<Props> = ({orientation, visible}) => {
   const dispatch = useAppDispatch();
+
+  const layoutHeight = useRef<number>();
+
+  const translateY = useSharedValue(0);
+  const animatedY = useAnimatedStyle(() => {
+    return {
+      transform: [{translateY: translateY.value}],
+    };
+  });
+
+  useEffect(() => {
+    animation(visible);
+  }, [visible]);
+
+  const animation = useCallback(
+    (visible: boolean) => {
+      if (!layoutHeight.current) return;
+
+      if (visible && translateY.value === 0) return;
+
+      translateY.value = withTiming(visible ? 0 : -(layoutHeight.current + 1), {
+        duration: 300,
+        easing: Easing.linear,
+      });
+    },
+    [layoutHeight.current, translateY],
+  );
 
   const onClose = useCallback(() => {
     Orientation.lockToPortrait();
@@ -33,16 +67,22 @@ const Header: FC<Props> = ({orientation}) => {
     }, 50);
   }, [dispatch]);
 
+  const _onLayout = (event: LayoutChangeEvent) => {
+    layoutHeight.current = event.nativeEvent.layout.height;
+  };
+
   return (
-    <View
+    <Animated.View
+      onLayout={_onLayout}
       style={[
         styles.container,
+        animatedY,
         {
-          marginHorizontal:
+          paddingHorizontal:
             orientation === 'LANDSCAPE'
               ? Device.statusBar()
               : moderateScale(16),
-          marginTop:
+          paddingTop:
             orientation === 'LANDSCAPE'
               ? moderateScale(16)
               : Device.statusBar(),
@@ -66,7 +106,7 @@ const Header: FC<Props> = ({orientation}) => {
           source={require('../../../../assets/imgs/pip.png')}
         />
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -79,6 +119,7 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    //backgroundColor: 'red',
   },
   iconContainer: {
     width: '48@ms',

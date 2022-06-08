@@ -10,17 +10,23 @@ type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   paused: boolean;
   inAppPipMode: boolean;
+  visible: boolean;
 };
 
-const Controllers: FC<Props> = ({orientation, paused, inAppPipMode}) => {
+const Controllers: FC<Props> = ({
+  orientation,
+  paused,
+  inAppPipMode,
+  visible,
+}) => {
   return (
     <View style={styles.container}>
       {inAppPipMode ? (
         <Pip paused={paused} />
       ) : (
         <>
-          <Header orientation={orientation} />
-          <Footer orientation={orientation} paused={paused} />
+          <Header visible={visible} orientation={orientation} />
+          <Footer visible={visible} orientation={orientation} paused={paused} />
         </>
       )}
     </View>
