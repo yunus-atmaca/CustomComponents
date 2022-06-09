@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from 'react';
+import React, {FC, useCallback, useMemo} from 'react';
 import {View, Text} from 'react-native';
 import {moderateScale, ScaledSheet} from 'react-native-size-matters';
 
@@ -7,16 +7,41 @@ import {Device} from '@src/utils';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
+  onSliderEventHandler?: (eventType: SliderEvents, props?: any) => void;
 };
 
-import Slider from './Slider';
+import Slider, {SliderEvents} from './Slider';
+import {useAppSelector} from '@src/hooks/store';
 
-const Scrubber: FC<Props> = ({orientation}) => {
+const Scrubber: FC<Props> = ({orientation, onSliderEventHandler}) => {
+  const videoDuration = useAppSelector(
+    state => state.videoPlayerController.duration,
+  );
+  const currentTime = useAppSelector(
+    state => state.videoPlayerController.currentTime,
+  );
+
   const Scrubber_WIDTH = useMemo(() => {
     return orientation === 'LANDSCAPE'
       ? Device.S_HEIGHT - 2 * Device.statusBar()
       : Device.S_WIDTH - 2 * moderateScale(16);
   }, [orientation]);
+
+  const getTime = useCallback(time => {
+    const hrs = ~~(time / 3600);
+    const mins = ~~((time % 3600) / 60);
+    const secs = ~~time % 60;
+
+    let ret = '';
+
+    //if (hrs > 0) {
+    ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
+    //}
+
+    ret += '' + mins + ':' + (secs < 10 ? '0' : '');
+    ret += '' + secs;
+    return ret;
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -29,12 +54,21 @@ const Scrubber: FC<Props> = ({orientation}) => {
                 ? Device.statusBar()
                 : moderateScale(16),
           },
+          {opacity: videoDuration > 0 ? 1 : 0},
         ]}>
-        <Text style={styles.time}>01:28:23</Text>
+        <Text style={[styles.time]}>
+          {/*getTime(videoDuration - currentTime)*/}
+          {getTime(currentTime)}
+        </Text>
       </View>
 
       <View style={styles.sContainer}>
-        <Slider sWidth={Scrubber_WIDTH} />
+        <Slider
+          videoDuration={videoDuration}
+          currentTime={currentTime}
+          sWidth={Scrubber_WIDTH}
+          onSliderEventHandler={onSliderEventHandler}
+        />
       </View>
     </View>
   );

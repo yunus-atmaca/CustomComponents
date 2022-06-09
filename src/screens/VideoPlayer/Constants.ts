@@ -9,4 +9,4 @@ export const PADDING_O_P = moderateScale(16);
 export const PIP_WIDTH = Device.S_WIDTH * 0.6;
 export const PIP_HEIGHT = Device.S_HEIGHT * 0.2;
 
-export type EventTypes = 'inAppPIPMode';
+export type EventTypes = 'onStartSliding' | 'onUpdateValue' | 'onEndSliding';

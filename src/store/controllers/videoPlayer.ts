@@ -6,7 +6,8 @@ type State = {
   data: string | undefined;
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   appPipMode: boolean;
-  duration: number | undefined;
+  duration: number;
+  currentTime: number;
   paused: boolean;
 };
 
@@ -14,7 +15,8 @@ export const defaultValues: State = {
   data: undefined,
   orientation: 'PORTRAIT',
   appPipMode: false,
-  duration: undefined,
+  currentTime: 0,
+  duration: 0,
   paused: false,
 };
 

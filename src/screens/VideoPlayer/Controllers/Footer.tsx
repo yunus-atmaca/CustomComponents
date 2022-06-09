@@ -8,16 +8,18 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 
+import Buttons from './Buttons';
+import Scrubber from './Scrubber';
+import {EventTypes} from '../Constants';
+
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   paused: boolean;
   visible: boolean;
+  eventHandlers: (event: EventTypes, props?: any) => void;
 };
 
-import Buttons from './Buttons';
-import Scrubber from './Scrubber';
-
-const Footer: FC<Props> = ({orientation, paused, visible}) => {
+const Footer: FC<Props> = ({orientation, paused, visible, eventHandlers}) => {
   const layoutHeight = useRef<number>();
 
   const translateY = useSharedValue(0);
@@ -51,7 +53,10 @@ const Footer: FC<Props> = ({orientation, paused, visible}) => {
 
   return (
     <Animated.View onLayout={_onLayout} style={[styles.container, animatedY]}>
-      <Scrubber orientation={orientation} />
+      <Scrubber
+        onSliderEventHandler={eventHandlers}
+        orientation={orientation}
+      />
       <Buttons orientation={orientation} paused={paused} />
     </Animated.View>
   );

@@ -19,14 +19,15 @@ const VideoPlayer: FC<Props> = ({}) => {
 
   const _eventHandlers = useCallback((event: EventTypes) => {
     switch (event) {
-      case 'inAppPIPMode':
-        break;
+      /*case 'inAppPIPMode':
+        break;*/
 
       default:
         break;
     }
   }, []);
 
+  console.debug('--VideoPlayer--');
   return (
     <PlayerContainer inAppPipMode={appPipMode}>
       <Video

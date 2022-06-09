@@ -5,12 +5,14 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Footer from './Footer';
 import Header from './Header';
 import Pip from './Pip';
+import {EventTypes} from '../Constants';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   paused: boolean;
   inAppPipMode: boolean;
   visible: boolean;
+  eventHandlers: (event: EventTypes, props?: any) => void;
 };
 
 const Controllers: FC<Props> = ({
@@ -18,6 +20,7 @@ const Controllers: FC<Props> = ({
   paused,
   inAppPipMode,
   visible,
+  eventHandlers,
 }) => {
   return (
     <View style={styles.container}>
@@ -26,7 +29,12 @@ const Controllers: FC<Props> = ({
       ) : (
         <>
           <Header visible={visible} orientation={orientation} />
-          <Footer visible={visible} orientation={orientation} paused={paused} />
+          <Footer
+            eventHandlers={eventHandlers}
+            visible={visible}
+            orientation={orientation}
+            paused={paused}
+          />
         </>
       )}
     </View>
