@@ -5,14 +5,14 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Footer from './Footer';
 import Header from './Header';
 import Pip from './Pip';
-import {EventTypes} from '../Constants';
+import {AllEvents} from '../Constants';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   paused: boolean;
   inAppPipMode: boolean;
   visible: boolean;
-  eventHandlers: (event: EventTypes, props?: any) => void;
+  eventHandlers: (event: AllEvents, props?: any) => void;
 };
 
 const Controllers: FC<Props> = ({

@@ -4,13 +4,14 @@ import {moderateScale, ScaledSheet} from 'react-native-size-matters';
 
 import {Colors} from '@src/res';
 import {Device} from '@src/utils';
+import {SliderEvents} from '../Constants';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   onSliderEventHandler?: (eventType: SliderEvents, props?: any) => void;
 };
 
-import Slider, {SliderEvents} from './Slider';
+import Slider from './Slider';
 import {useAppSelector} from '@src/hooks/store';
 
 const Scrubber: FC<Props> = ({orientation, onSliderEventHandler}) => {

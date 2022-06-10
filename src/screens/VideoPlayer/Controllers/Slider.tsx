@@ -16,8 +16,7 @@ import Animated, {
 import {Colors} from '@src/res';
 import {useAppDispatch} from '@src/hooks/store';
 import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
-
-export type SliderEvents = 'onStartSliding' | 'onUpdateValue' | 'onEndSliding';
+import {SliderEvents} from '../Constants';
 
 type Props = {
   sWidth: number;
@@ -137,7 +136,7 @@ const styles = ScaledSheet.create({
   container: {
     //width: '100%',
     height: THUMB_SIZE,
-   // backgroundColor: 'blue',
+    // backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
   },

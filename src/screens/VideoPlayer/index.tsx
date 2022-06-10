@@ -1,11 +1,11 @@
-import React, {FC, useCallback} from 'react';
-import {ScaledSheet} from 'react-native-size-matters';
+import React, {FC, useCallback, useState} from 'react';
 
 import {useAppSelector} from '@src/hooks/store';
 
 import PlayerContainer from './PlayerContainer';
 import Video from './Video';
-import {EventTypes} from './Constants';
+import ChromecastDevices from './ChromecastDevices';
+import {AllEvents} from './Constants';
 
 type Props = {};
 
@@ -17,15 +17,22 @@ const VideoPlayer: FC<Props> = ({}) => {
     state => state.videoPlayerController.appPipMode,
   );
 
-  const _eventHandlers = useCallback((event: EventTypes) => {
+  const [deviceList, setDeviceList] = useState(false);
+
+  const _eventHandlers = useCallback((event: AllEvents) => {
     switch (event) {
-      /*case 'inAppPIPMode':
-        break;*/
+      case 'onChromecastDevices':
+        setDeviceList(true);
+        break;
 
       default:
         break;
     }
   }, []);
+
+  const onCloseDeviceList = useCallback(() => {
+    setDeviceList(false);
+  }, [setDeviceList]);
 
   console.debug('--VideoPlayer--');
   return (
@@ -35,6 +42,9 @@ const VideoPlayer: FC<Props> = ({}) => {
         eventHandlers={_eventHandlers}
         orientation={orientation}
       />
+      {!appPipMode && deviceList && (
+        <ChromecastDevices onClose={onCloseDeviceList} />
+      )}
     </PlayerContainer>
   );
 };

@@ -10,13 +10,13 @@ import Animated, {
 
 import Buttons from './Buttons';
 import Scrubber from './Scrubber';
-import {EventTypes} from '../Constants';
+import {AllEvents} from '../Constants';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
   paused: boolean;
   visible: boolean;
-  eventHandlers: (event: EventTypes, props?: any) => void;
+  eventHandlers: (event: AllEvents, props?: any) => void;
 };
 
 const Footer: FC<Props> = ({orientation, paused, visible, eventHandlers}) => {
@@ -57,7 +57,11 @@ const Footer: FC<Props> = ({orientation, paused, visible, eventHandlers}) => {
         onSliderEventHandler={eventHandlers}
         orientation={orientation}
       />
-      <Buttons orientation={orientation} paused={paused} />
+      <Buttons
+        eventHandlers={eventHandlers}
+        orientation={orientation}
+        paused={paused}
+      />
     </Animated.View>
   );
 };

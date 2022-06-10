@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import com.customcomponents.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.google.android.gms.cast.framework.CastContext;
 
 import com.customcomponents.utils.FullScreenModule;
 
@@ -60,6 +61,8 @@ public class MainApplication extends Application implements ReactApplication {
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    // lazy load Google Cast context
+    CastContext.getSharedInstance(this);
   }
 
   /**

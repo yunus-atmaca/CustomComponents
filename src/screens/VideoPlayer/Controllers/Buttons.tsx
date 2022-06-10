@@ -7,13 +7,15 @@ import {Colors} from '@src/res';
 import {Device} from '@src/utils';
 import {useAppDispatch} from '@src/hooks/store';
 import {setVideoPlayer} from '@src/store/controllers/videoPlayer';
+import {AllEvents} from '../Constants';
 
 type Props = {
   orientation: 'PORTRAIT' | 'LANDSCAPE';
+  eventHandlers: (event: AllEvents, props?: any) => void;
   paused: boolean;
 };
 
-const Buttons: FC<Props> = ({orientation, paused}) => {
+const Buttons: FC<Props> = ({orientation, paused, eventHandlers}) => {
   const dispatch = useAppDispatch();
 
   const _onScreenRotate = useCallback(() => {
@@ -30,6 +32,11 @@ const Buttons: FC<Props> = ({orientation, paused}) => {
     dispatch(setVideoPlayer({paused: !paused}));
   }, [paused]);
 
+  const onChromecast = useCallback(
+    () => eventHandlers('onChromecastDevices'),
+    [eventHandlers],
+  );
+
   return (
     <View
       style={[
@@ -45,12 +52,15 @@ const Buttons: FC<Props> = ({orientation, paused}) => {
               : Device.statusBar(),
         },
       ]}>
-      <View style={styles.iconContainer}>
+      <TouchableOpacity
+        onPress={onChromecast}
+        activeOpacity={0.7}
+        style={styles.iconContainer}>
         <Image
           style={styles.icon}
           source={require('../../../../assets/imgs/chromecast.png')}
         />
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity
         activeOpacity={0.7}
